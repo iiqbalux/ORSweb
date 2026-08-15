@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ORS Garage — Engineered to Keep You Moving</title>
+<meta name="description" content="Professional van, fleet and commercial vehicle servicing, diagnostics, MOT and repairs. Reliable, honest, built for your business." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            950: '#0d0d0d',
+            900: '#131313',
+            800: '#1a1a1a',
+            700: '#202020',
+            600: '#2a2a2a',
+            500: '#3a3a3a',
+          },
+          brand: {
+            green: '#015046',
+            greenlight: '#0c8a6e',
+            greenbright: '#17c99a',
+            silver: '#c4c4c4',
+          },
+        },
+        fontFamily: {
+          display: ['"League Spartan"', 'sans-serif'],
+          body: ['"IBM Plex Sans"', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #131313;
+    font-feature-settings: "ss01";
+  }
+  .font-display { font-family: 'League Spartan', sans-serif; }
+  .font-body { font-family: 'IBM Plex Sans', sans-serif; }
+
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+
+  .spring {
+    transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  ::selection { background: #0c8a6e; color: #0d0d0d; }
+
+  .text-balance { text-wrap: balance; }
+
+  /* scroll-triggered entrance animation: subtle fade + rise, one-shot */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  /* slow ambient drift on the hero background photo */
+  .hero-bg-photo {
+    animation: heroBgDrift 26s ease-in-out infinite;
+  }
+  @keyframes heroBgDrift {
+    0%   { transform: scale(1.08) translate(0, 0); }
+    50%  { transform: scale(1.16) translate(-2.5%, -1.5%); }
+    100% { transform: scale(1.08) translate(0, 0); }
+  }
+
+  /* ambient turning gears watermark behind the About section */
+  .about-gears {
+    position: absolute;
+    inset: -20%;
+    background-image: url('brand_assets/gears.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    opacity: 0.035;
+    pointer-events: none;
+    animation: gearsTurn 140s linear infinite;
+  }
+  @keyframes gearsTurn {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-gears { animation: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-photo { animation: none; }
+  }
+
+  /* ---- metallic surfaces ---- */
+  .metal-green {
+    position: relative;
+    isolation: isolate;
+    background: #015046;
+  }
+  .metal-green::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 47%, rgba(255,255,255,0.03) 58%, transparent 74%);
+    opacity: 0.55;
+    transform: translateX(-10%);
+    transition: opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+  .metal-green:hover::before,
+  .metal-green:focus-visible::before { opacity: 0.8; transform: translateX(10%); }
+  .metal-green::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.45);
+    pointer-events: none;
+  }
+
+  .metal-green-text {
+    background: linear-gradient(150deg, #1fae8c 0%, #0c8a6e 25%, #17c99a 45%, #015046 65%, #17c99a 85%, #0c8a6e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .metal-bezel {
+    position: relative;
+    border: 1px solid transparent;
+    background-image: linear-gradient(#1a1a1a, #1a1a1a), linear-gradient(150deg, #f7f7f7 0%, #8c8c8c 24%, #4c4c4c 40%, #eeeeee 58%, #6a6a6a 76%, #d8d8d8 100%);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .metal-silver-surface {
+    position: relative;
+    isolation: isolate;
+    background-image: url('brand_assets/silver.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -1px 0 rgba(0,0,0,0.15);
+  }
+  .metal-silver-surface::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      repeating-linear-gradient(112deg, rgba(255,255,255,0.35) 0px, rgba(255,255,255,0.35) 1px, transparent 1px, transparent 3px),
+      linear-gradient(112deg, transparent 22%, rgba(255,255,255,0.55) 42%, rgba(255,255,255,0.05) 54%, transparent 70%);
+    mix-blend-mode: overlay;
+    opacity: 0.65;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .metal-silver-surface > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---- garage shutter intro: one continuous curtain, clean slide up ---- */
+  .shutter-slats {
+    background-image:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.13) 0px, rgba(255,255,255,0.13) 2px,
+        rgba(0,0,0,0.22) 2px, rgba(0,0,0,0.22) 5px,
+        transparent 5px, transparent 32px,
+        rgba(0,0,0,0.5) 32px, rgba(0,0,0,0.5) 34px
+      ),
+      repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.025) 0px, rgba(255,255,255,0.025) 34px,
+        transparent 34px, transparent 68px
+      );
+  }
+  .shutter-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 32%, rgba(255,255,255,0.06) 47%, rgba(255,255,255,0.01) 58%, transparent 74%);
+    pointer-events: none;
+  }
+  .shutter-rivets {
+    background-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.6) 0 32%, rgba(255,255,255,0.1) 38% 52%, transparent 60%);
+    background-size: 100% 34px;
+    background-repeat: repeat-y;
+    opacity: 0.8;
+  }
+  .shutter-rail {
+    background: linear-gradient(90deg, #0a0a0a 0%, #3c3c3c 38%, #4d4d4d 50%, #3c3c3c 62%, #0a0a0a 100%);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
+  }
+  .shutter-bottom-bar {
+    background: linear-gradient(180deg, #3c3c3c 0%, #242424 45%, #161616 100%);
+    box-shadow: 0 -2px 0 rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+
+  .shutter-panel {
+    background: linear-gradient(180deg, #303030 0%, #202020 55%, #161616 100%);
+    animation: shutterSlideUp 3.5s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
+  }
+  @keyframes shutterSlideUp {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shutter-panel { animation: none; }
+    .shutter-panel::before { display: none; }
+  }
+</style>
+</head>
+<body class="font-body bg-ink-900 text-white antialiased pb-[320px] lg:pb-0">
+
+<!-- ============ GARAGE SHUTTER INTRO ============ -->
+<div id="shutter" class="fixed inset-0 z-[100] overflow-hidden" aria-hidden="true">
+  <div class="shutter-panel absolute inset-0">
+    <div class="absolute inset-0 shutter-slats"></div>
+    <div class="absolute inset-y-0 left-3 sm:left-6 w-1.5 shutter-rivets"></div>
+    <div class="absolute inset-y-0 right-3 sm:right-6 w-1.5 shutter-rivets"></div>
+    <div class="absolute inset-y-0 left-0 w-4 sm:w-6 shutter-rail"></div>
+    <div class="absolute inset-y-0 right-0 w-4 sm:w-6 shutter-rail"></div>
+    <div class="absolute inset-x-0 top-0 h-1.5 bg-gradient-to-b from-white/15 to-transparent"></div>
+
+    <!-- badge: real logo mounted on the door -->
+    <div class="absolute inset-0 flex items-center justify-center pb-16 sm:pb-20">
+      <div class="metal-bezel rounded-full bg-ink-800 p-1.5 shadow-[0_16px_36px_-10px_rgba(0,0,0,0.7)]">
+        <img src="brand_assets/OTR_Logo.png" alt="ORS Garage" class="h-20 w-20 sm:h-28 sm:w-28 rounded-full object-cover" />
+      </div>
+    </div>
+
+    <!-- reinforced bottom bar: handle + lock -->
+    <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 shutter-bottom-bar flex items-center justify-center gap-3">
+      <span class="w-2 h-2 rounded-full bg-ink-950 ring-1 ring-white/10"></span>
+      <div class="metal-bezel h-3.5 w-28 sm:w-40 rounded-full bg-ink-800 grid place-items-center">
+        <svg class="w-3.5 h-3.5 text-ink-700/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+      </div>
+      <span class="w-2 h-2 rounded-full bg-ink-950 ring-1 ring-white/10"></span>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var shutter = document.getElementById('shutter');
+    var skip = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (skip) {
+      if (shutter) shutter.style.display = 'none';
+      return;
+    }
+    var panel = shutter.querySelector('.shutter-panel');
+    panel.addEventListener('animationend', function () {
+      shutter.style.display = 'none';
+    }, { once: true });
+  })();
+</script>
+
+<!-- grain texture overlay -->
+<svg class="grain" xmlns="http://www.w3.org/2000/svg">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"></feTurbulence>
+    <feColorMatrix type="saturate" values="0"></feColorMatrix>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#noiseFilter)"></rect>
+</svg>
+
+<!-- ============ HEADER ============ -->
+<header class="fixed top-0 inset-x-0 z-50 border-b border-white/[0.06] bg-ink-700/85 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-[76px] flex items-center justify-between">
+    <a href="#top" aria-label="ORS Garage home" class="flex items-center gap-2.5 shrink-0 group">
+      <img src="brand_assets/OTR_Logo.png" alt="ORS Garage logo" class="h-14 w-14 rounded-lg spring transition-transform duration-300 group-hover:scale-105" />
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-9 font-display text-[13px] font-semibold tracking-[0.12em] text-brand-silver">
+      <a href="#top" class="hover:text-white transition-colors duration-200">HOME</a>
+      <a href="#services" class="hover:text-white transition-colors duration-200">SERVICES</a>
+      <a href="#about" class="hover:text-white transition-colors duration-200">ABOUT</a>
+      <a href="#contact" class="hover:text-white transition-colors duration-200">CONTACT</a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a href="tel:01615664794" class="hidden md:inline-flex items-center gap-2 font-display font-bold text-sm tracking-wide border border-white/20 text-white px-7 py-4 rounded-md hover:border-brand-greenbright hover:text-brand-greenbright hover:bg-white/[0.03] active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 spring transition-all duration-300">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+        0161 566 4794
+      </a>
+      <a href="#book-appointment" class="metal-green font-display font-bold text-sm tracking-wide text-white px-7 py-4 rounded-md shadow-[0_8px_20px_-6px_rgba(1,80,70,0.6)] hover:shadow-[0_10px_26px_-6px_rgba(12,138,110,0.7)] active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-greenbright spring transition-all duration-200">
+        BOOK NOW
+      </a>
+      <button id="menuBtn" class="lg:hidden w-10 h-10 grid place-items-center rounded-md hover:bg-white/5 active:scale-95 transition-all duration-200" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5" /></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- mobile nav -->
+  <div id="mobileMenu" class="lg:hidden hidden border-t border-white/[0.06] bg-ink-700">
+    <nav class="flex flex-col px-5 py-4 gap-1 font-display text-sm font-semibold tracking-wide text-brand-silver">
+      <a href="#top" class="py-3 hover:text-white transition-colors">HOME</a>
+      <a href="#services" class="py-3 hover:text-white transition-colors">SERVICES</a>
+      <a href="#about" class="py-3 hover:text-white transition-colors">ABOUT</a>
+      <a href="#contact" class="py-3 hover:text-white transition-colors">CONTACT</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section data-hero class="relative pt-[76px] overflow-hidden bg-ink-900">
+  <!-- layered brand background: hero photo + blueprint grid + green glows + gauge-dial motif -->
+  <img src="brand_assets/car_bg.png" alt="" aria-hidden="true" class="hero-bg-photo absolute inset-0 w-full h-full object-cover object-right pointer-events-none" data-parallax="0.08" />
+  <div class="absolute inset-0" data-parallax="0.06" style="background-image: linear-gradient(to right, rgba(196,196,196,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(196,196,196,0.05) 1px, transparent 1px); background-size: 56px 56px;"></div>
+  <div class="absolute -top-24 -left-32 w-[480px] h-[480px] rounded-full bg-brand-green/25 blur-[130px] pointer-events-none" data-parallax="0.16"></div>
+  <div class="absolute -bottom-40 -right-20 w-[520px] h-[520px] rounded-full bg-brand-greenlight/15 blur-[150px] pointer-events-none" data-parallax="0.1"></div>
+  <svg class="absolute top-1/2 -right-48 -translate-y-1/2 w-[640px] h-[640px] opacity-[0.14] pointer-events-none hidden md:block" data-parallax="0.12" viewBox="0 0 700 700" fill="none">
+    <circle cx="350" cy="350" r="340" stroke="#c4c4c4" stroke-width="1.5" />
+    <circle cx="350" cy="350" r="300" stroke="#c4c4c4" stroke-width="1" opacity="0.6" />
+    <circle cx="350" cy="350" r="320" stroke="#17c99a" stroke-width="4" stroke-linecap="round" stroke-dasharray="670 2011" transform="rotate(210 350 350)" opacity="0.7" />
+    <g stroke="#c4c4c4" stroke-width="1.5">
+      <line x1="690" y1="350" x2="650" y2="350" /><line x1="644" y1="520" x2="610" y2="500" />
+      <line x1="520" y1="644" x2="500" y2="610" /><line x1="350" y1="690" x2="350" y2="650" />
+      <line x1="180" y1="644" x2="200" y2="610" /><line x1="56" y1="520" x2="90" y2="500" />
+      <line x1="10" y1="350" x2="50" y2="350" /><line x1="56" y1="180" x2="90" y2="200" />
+      <line x1="180" y1="56" x2="200" y2="90" /><line x1="350" y1="10" x2="350" y2="50" />
+      <line x1="520" y1="56" x2="500" y2="90" /><line x1="644" y1="180" x2="610" y2="200" />
+    </g>
+  </svg>
+  <div class="absolute inset-0 bg-gradient-to-r from-ink-950 via-ink-950/50 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-ink-950/55 via-transparent to-ink-950/20"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 min-h-[calc(100vh-76px)] grid lg:grid-cols-[1fr_auto] gap-14 lg:gap-10 items-center py-16 lg:py-20">
+    <div class="max-w-xl">
+      <p class="mb-6">
+        <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">5-STAR RATED ON GOOGLE</span>
+      </p>
+      <h1 class="font-display font-black uppercase leading-[0.95] tracking-tight text-[clamp(2.75rem,6vw,4.75rem)] text-balance">
+        A Garage You Can<br /><span class="metal-green-text">Trust.</span>
+      </h1>
+      <p class="mt-6 text-brand-silver text-lg leading-[1.7] max-w-md">
+        Based in Manchester, ORS Autos provides trusted MOTs, servicing, diagnostics and repairs to keep you safely on the road.
+      </p>
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a href="#book-appointment" class="metal-green group font-display font-bold text-sm tracking-wide text-white px-7 py-4 rounded-md inline-flex items-center gap-2 shadow-[0_14px_34px_-10px_rgba(1,80,70,0.7)] hover:shadow-[0_18px_40px_-8px_rgba(12,138,110,0.75)] hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-greenbright spring transition-all duration-300">
+          Book an appointment
+          <svg class="w-4 h-4 spring transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+        </a>
+      </div>
+      <div class="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div>
+          <p class="font-display font-bold text-sm">Same-day</p>
+          <p class="text-brand-silver text-sm">work where possible</p>
+        </div>
+        <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+        <div>
+          <p class="font-display font-bold text-sm">Transparent</p>
+          <p class="text-brand-silver text-sm">pricing and advice</p>
+        </div>
+        <div class="w-px h-8 bg-white/10 hidden sm:block"></div>
+        <div>
+          <p class="font-display font-bold text-sm">Reliable</p>
+          <p class="text-brand-silver text-sm">service you can count on</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick enquiry form card (desktop / tablet) -->
+    <div class="hidden lg:block w-[420px] shrink-0">
+      <div class="metal-silver-surface relative text-ink-900 rounded-2xl p-9 shadow-[0_45px_90px_-20px_rgba(0,0,0,0.65)] ring-1 ring-black/10">
+        <p class="mb-4">
+          <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">QUICK ENQUIRY</span>
+        </p>
+        <h2 class="font-display font-extrabold text-2xl tracking-tight leading-[1.1] mb-7">How can we help?</h2>
+
+        <form class="enquiry-form space-y-5" data-variant="desktop">
+          <div>
+            <label for="service-desktop" class="block font-display font-bold text-sm mb-2">Service needed</label>
+            <select id="service-desktop" required class="w-full appearance-none bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200 bg-[url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23202020%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.19l3.71-3.96a.75.75%200%201%201.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center] bg-[length:1.1rem]">
+              <option value="" selected disabled>Choose a service</option>
+              <option>MOT Testing</option>
+              <option>Servicing</option>
+              <option>Diagnostics</option>
+              <option>Repairs</option>
+              <option>Brake Repairs</option>
+              <option>Fleet Care</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="reg-desktop" class="block font-display font-bold text-sm mb-2">Registration</label>
+              <input id="reg-desktop" type="text" placeholder="AB12 CDE" maxlength="8" class="w-full uppercase placeholder:normal-case bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+            </div>
+            <div>
+              <label for="date-desktop" class="block font-display font-bold text-sm mb-2">Preferred day</label>
+              <input id="date-desktop" type="date" class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+            </div>
+          </div>
+          <div>
+            <label for="email-desktop" class="block font-display font-bold text-sm mb-2">Email address</label>
+            <input id="email-desktop" type="email" required placeholder="you@example.com" class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+          </div>
+          <div id="comments-desktop-wrap" data-comments-wrap class="hidden">
+            <label for="comments-desktop" class="block font-display font-bold text-sm mb-2">Additional comments</label>
+            <textarea id="comments-desktop" rows="3" placeholder="Tell us more about what your vehicle needs..." class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200 resize-none"></textarea>
+          </div>
+          <button type="submit" data-submit-btn class="metal-green w-full font-display font-bold text-sm tracking-wide text-white px-7 py-4 rounded-md shadow-[0_14px_34px_-10px_rgba(1,80,70,0.7)] hover:shadow-[0_18px_40px_-8px_rgba(12,138,110,0.75)] hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green spring transition-all duration-300">
+            Send enquiry
+          </button>
+          <p class="text-center text-xs text-ink-900/70 font-medium">No payment needed. We'll confirm the appointment first.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE STRIP ============ -->
+<section class="relative bg-ink-800 border-y border-white/[0.06]">
+  <div class="reveal max-w-7xl mx-auto px-5 sm:px-8 grid sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 divide-white/[0.06] lg:divide-x">
+    <a href="#services" class="group py-10 px-6 flex flex-col items-start gap-4 hover:bg-white/[0.02] spring transition-colors duration-300">
+      <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-700 grid place-items-center text-brand-greenbright group-hover:-translate-y-0.5 spring transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" /></svg>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-sm tracking-[0.12em] mb-1.5">SERVICING</h3>
+        <p class="text-sm text-brand-silver leading-relaxed">From routine maintenance to major repairs.</p>
+      </div>
+    </a>
+    <a href="#services" class="group py-10 px-6 flex flex-col items-start gap-4 hover:bg-white/[0.02] spring transition-colors duration-300">
+      <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-700 grid place-items-center text-brand-greenbright group-hover:-translate-y-0.5 spring transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-sm tracking-[0.12em] mb-1.5">DIAGNOSTICS</h3>
+        <p class="text-sm text-brand-silver leading-relaxed">Advanced diagnostics for all makes.</p>
+      </div>
+    </a>
+    <a href="#fleet" class="group py-10 px-6 flex flex-col items-start gap-4 hover:bg-white/[0.02] spring transition-colors duration-300">
+      <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-700 grid place-items-center text-brand-greenbright group-hover:-translate-y-0.5 spring transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 0h-12" /></svg>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-sm tracking-[0.12em] mb-1.5">FLEET CARE</h3>
+        <p class="text-sm text-brand-silver leading-relaxed">Keeping your business moving.</p>
+      </div>
+    </a>
+    <a href="#services" class="group py-10 px-6 flex flex-col items-start gap-4 hover:bg-white/[0.02] spring transition-colors duration-300">
+      <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-700 grid place-items-center text-brand-greenbright group-hover:-translate-y-0.5 spring transition-all duration-300">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.96.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" /></svg>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-sm tracking-[0.12em] mb-1.5">MOT &amp; REPAIRS</h3>
+        <p class="text-sm text-brand-silver leading-relaxed">MOT testing and all mechanical repairs.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="relative bg-ink-800 py-24 lg:py-32 border-t border-white/[0.06]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="reveal max-w-2xl mb-16">
+      <p class="mb-5">
+        <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">TESTIMONIALS</span>
+      </p>
+      <h2 class="font-display font-extrabold text-[clamp(2rem,4vw,3rem)] leading-[1.05] tracking-tight text-balance">
+        What our customers say.
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="reveal bg-ink-700 ring-1 ring-white/10 rounded-2xl p-8 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)]">
+        <div class="flex gap-1 text-brand-greenbright mb-5">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+        </div>
+        <p class="text-brand-silver leading-[1.7] mb-6">"Took my car in for service — they installed new brake pads, disks and suspension coils same-day, at reasonable rates."</p>
+        <p class="font-display font-bold text-sm tracking-wide">Taha Gill</p>
+      </div>
+      <div class="reveal bg-ink-700 ring-1 ring-white/10 rounded-2xl p-8 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)]" style="transition-delay: 100ms;">
+        <div class="flex gap-1 text-brand-greenbright mb-5">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+        </div>
+        <p class="text-brand-silver leading-[1.7] mb-6">"Fair pricing on MOT and brake service. Honest garage that won't overcharge — my only choice going forward."</p>
+        <p class="font-display font-bold text-sm tracking-wide">Pranay Maisuria</p>
+      </div>
+      <div class="reveal bg-ink-700 ring-1 ring-white/10 rounded-2xl p-8 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)]" style="transition-delay: 200ms;">
+        <div class="flex gap-1 text-brand-greenbright mb-5">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.448a1 1 0 00-.363 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118l-3.367-2.447a1 1 0 00-1.175 0l-3.367 2.447c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.363-1.118L2.062 9.385c-.783-.57-.38-1.81.588-1.81h4.163a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+        </div>
+        <p class="text-brand-silver leading-[1.7] mb-6">"Even near closing time, they professionally fixed my car issue. Exceptional service and highly trustworthy."</p>
+        <p class="font-display font-bold text-sm tracking-wide">Usman Raoof</p>
+      </div>
+    </div>
+
+    <div class="reveal mt-10 flex justify-start">
+      <a href="https://www.google.com/maps?cid=801160430398458675" target="_blank" rel="noopener noreferrer" class="group font-display font-bold text-sm tracking-wide border border-white/20 text-white px-7 py-4 rounded-md inline-flex items-center gap-2 hover:border-brand-greenbright hover:text-brand-greenbright hover:bg-white/[0.03] active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 spring transition-all duration-300">
+        <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.25 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A10.99 10.99 0 0012 23z"/><path fill="#FBBC05" d="M5.84 14.09A6.6 6.6 0 015.5 12c0-.73.13-1.43.35-2.09V7.07H2.18A11 11 0 001 12c0 1.77.42 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1a10.99 10.99 0 00-9.82 6.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        See all reviews on Google
+        <svg class="w-4 h-4 spring transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="relative bg-ink-900 py-24 lg:py-32 overflow-hidden">
+  <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-brand-green/10 blur-[150px] pointer-events-none"></div>
+  <div class="about-gears" aria-hidden="true"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-ink-900 via-transparent to-ink-900 pointer-events-none" aria-hidden="true"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid lg:grid-cols-2 gap-14 items-center mb-16">
+      <div class="reveal">
+        <p class="mb-5">
+          <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">ABOUT ORS GARAGE</span>
+        </p>
+        <h2 class="font-display font-extrabold text-[clamp(2rem,4vw,3rem)] leading-[1.05] tracking-tight text-balance mb-6">
+          Reliable. Honest. Amazing service, every time.
+        </h2>
+        <div class="text-brand-silver text-lg leading-[1.7] space-y-4">
+          <p>At ORS Autos Ltd, we are proud to be a trusted name in Manchester for reliable, high-quality automotive services.</p>
+          <p>Our experienced technicians provide routine maintenance, diagnostics, repairs and specialised services, with care and attention to detail.</p>
+          <p>We focus on efficiency, transparency and honest pricing, providing dependable service you can trust. Our goal is simple: to keep your vehicle running smoothly and safely.</p>
+        </div>
+      </div>
+
+      <div class="reveal relative" style="transition-delay: 150ms;">
+        <div class="relative rounded-2xl overflow-hidden shadow-[0_30px_70px_-20px_rgba(0,0,0,0.7)] ring-1 ring-white/10">
+          <img src="brand_assets/about us.png" alt="ORS Autos technicians talking with a customer in the workshop" class="w-full aspect-[3/2] object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-ink-900/70 via-transparent to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/10 mix-blend-multiply"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.06] rounded-2xl overflow-hidden ring-1 ring-white/[0.06] mb-12">
+      <div class="reveal">
+        <div class="bg-ink-900 p-8 h-full flex flex-col gap-4 hover:bg-ink-800 spring transition-colors duration-300">
+          <div class="w-10 h-10 rounded-full bg-brand-green/20 grid place-items-center text-brand-greenbright">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          </div>
+          <h3 class="font-display font-bold tracking-tight">Skilled Mechanics</h3>
+          <p class="text-sm text-brand-silver leading-[1.7]">Experienced technicians trained across all makes and models.</p>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay: 80ms;">
+        <div class="bg-ink-900 p-8 h-full flex flex-col gap-4 hover:bg-ink-800 spring transition-colors duration-300">
+          <div class="w-10 h-10 rounded-full bg-brand-green/20 grid place-items-center text-brand-greenbright">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          </div>
+          <h3 class="font-display font-bold tracking-tight">Fast Turnaround</h3>
+          <p class="text-sm text-brand-silver leading-[1.7]">Minimal downtime so your van gets back to work quickly.</p>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay: 160ms;">
+        <div class="bg-ink-900 p-8 h-full flex flex-col gap-4 hover:bg-ink-800 spring transition-colors duration-300">
+          <div class="w-10 h-10 rounded-full bg-brand-green/20 grid place-items-center text-brand-greenbright">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          </div>
+          <h3 class="font-display font-bold tracking-tight">Trusted Local Garage</h3>
+          <p class="text-sm text-brand-silver leading-[1.7]">A name Manchester businesses have relied on for years.</p>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay: 240ms;">
+        <div class="bg-ink-900 p-8 h-full flex flex-col gap-4 hover:bg-ink-800 spring transition-colors duration-300">
+          <div class="w-10 h-10 rounded-full bg-brand-green/20 grid place-items-center text-brand-greenbright">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+          </div>
+          <h3 class="font-display font-bold tracking-tight">Honest Pricing</h3>
+          <p class="text-sm text-brand-silver leading-[1.7]">Clear, fair quotes with no surprises on the invoice.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal flex justify-start" style="transition-delay: 320ms;">
+      <a href="#services" class="metal-green group font-display font-bold text-sm tracking-wide text-white px-7 py-4 rounded-md inline-flex items-center gap-2 shadow-[0_14px_34px_-10px_rgba(1,80,70,0.7)] hover:shadow-[0_18px_40px_-8px_rgba(12,138,110,0.75)] hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-greenbright spring transition-all duration-300">
+        Learn more
+        <svg class="w-4 h-4 spring transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES DETAIL ============ -->
+<section id="services" class="relative bg-ink-800 py-24 lg:py-32 border-t border-white/[0.06]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="reveal max-w-2xl mb-16">
+      <p class="mb-5">
+        <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">OUR SERVICES</span>
+      </p>
+      <h2 class="font-display font-extrabold text-[clamp(2rem,4vw,3rem)] leading-[1.05] tracking-tight text-balance">
+        Everything your vehicle needs, under one roof.
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- card -->
+      <div class="reveal">
+      <div class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)]">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/MOT.png" alt="ORS Autos technician carrying out an MOT check" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">MOT Testing</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Fast, reliable MOT testing to keep you legal and safe on the road.</p>
+        </div>
+      </div>
+      </div>
+      <!-- card -->
+      <div class="reveal" style="transition-delay: 80ms;">
+      <div class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)]">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/carServicing.png" alt="ORS Autos technician topping up engine oil during a service" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" /></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">Servicing</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Routine maintenance and full services to keep your vehicle at its best.</p>
+        </div>
+      </div>
+      </div>
+      <!-- card -->
+      <div class="reveal" style="transition-delay: 160ms;">
+      <div class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)]">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/Repairs.png" alt="ORS Autos technician carrying out a vehicle repair" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" /></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">Repairs</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Expert mechanical repairs for all makes and models, fixed right first time.</p>
+        </div>
+      </div>
+      </div>
+      <!-- card -->
+      <div class="reveal" style="transition-delay: 240ms;">
+      <div class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)]">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/vehicleDiagnostic.png" alt="ORS Autos technician running vehicle diagnostics" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">Diagnostics</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Advanced fault-finding technology to catch issues before they get costly.</p>
+        </div>
+      </div>
+      </div>
+      <!-- card -->
+      <div class="reveal" style="transition-delay: 320ms;">
+      <div class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)]">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/break_repairs.png" alt="ORS Autos technician carrying out a brake repair" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6">
+              <circle cx="12" cy="12" r="8.25" />
+              <circle cx="12" cy="12" r="2.25" />
+              <circle cx="12" cy="6.5" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="16.76" cy="9.25" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="16.76" cy="14.75" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="12" cy="17.5" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="7.24" cy="14.75" r="0.9" fill="currentColor" stroke="none" />
+              <circle cx="7.24" cy="9.25" r="0.9" fill="currentColor" stroke="none" />
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">Brake Repairs</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Quality brake servicing and repairs for safety you can trust.</p>
+        </div>
+      </div>
+      </div>
+      <!-- card: fleet -->
+      <div class="reveal" style="transition-delay: 400ms;">
+      <div id="fleet" class="group relative metal-silver-surface text-ink-900 ring-1 ring-black/10 rounded-2xl overflow-hidden hover:ring-brand-greenbright/50 hover:-translate-y-1 spring transition-all duration-300 shadow-[0_20px_40px_-25px_rgba(0,0,0,0.8)] hover:shadow-[0_30px_60px_-20px_rgba(1,80,70,0.35)] scroll-mt-24">
+        <div class="relative h-44 overflow-hidden">
+          <img src="brand_assets/car_repairing.png" alt="ORS Autos technician servicing a fleet vehicle" class="w-full h-full object-cover spring transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-silver via-brand-silver/25 to-transparent"></div>
+          <div class="absolute inset-0 bg-brand-green/20 mix-blend-multiply"></div>
+        </div>
+        <div class="relative p-8 pt-0">
+          <div class="metal-bezel w-12 h-12 rounded-lg bg-ink-800 grid place-items-center text-brand-greenbright mb-6 -mt-6 spring transition-colors duration-300">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 0h-12" /></svg>
+          </div>
+          <h3 class="font-display font-bold text-lg tracking-tight mb-2.5">Fleet Care</h3>
+          <p class="text-[#1f2937] font-medium text-[15px] leading-[1.7]">Keeping vans and business fleets on the road with minimal downtime.</p>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="metal-green relative overflow-hidden">
+  <div class="absolute inset-0 opacity-40" style="background: radial-gradient(circle at 15% 20%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 85% 80%, rgba(0,0,0,0.25), transparent 45%);"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8 py-16 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+    <div class="reveal">
+      <h2 class="font-display font-extrabold text-[clamp(1.75rem,3.5vw,2.5rem)] leading-tight tracking-tight text-balance">Ready to book your vehicle in?</h2>
+      <p class="text-white/80 mt-2 text-lg">Call us or book online - we'll get your vehicle sorted, fast.</p>
+    </div>
+    <div class="reveal flex flex-col sm:flex-row items-center gap-4 shrink-0" style="transition-delay: 120ms;">
+      <a href="tel:01615664794" class="font-display font-bold text-sm tracking-wide border border-white/40 text-white px-7 py-4 rounded-md inline-flex items-center gap-2 hover:bg-white/10 active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white spring transition-all duration-300">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+        0161 566 4794
+      </a>
+      <a href="#book-appointment" class="font-display font-bold text-sm tracking-wide bg-ink-900 text-white px-7 py-4 rounded-md inline-flex items-center gap-2 shadow-[0_14px_34px_-10px_rgba(0,0,0,0.5)] hover:bg-ink-800 hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white spring transition-all duration-300">
+        BOOK NOW
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK AN APPOINTMENT ============ -->
+<section id="book-appointment" class="relative bg-ink-900 py-24 lg:py-32 border-t border-white/[0.06] scroll-mt-20 overflow-hidden">
+  <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-brand-green/15 blur-[150px] pointer-events-none"></div>
+  <div class="relative max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="reveal max-w-2xl mb-14">
+      <p class="mb-5">
+        <span class="inline-block font-display font-extrabold text-xs tracking-[0.25em] text-white bg-brand-green px-4 py-1.5 rounded-full">BOOK AN APPOINTMENT</span>
+      </p>
+      <h2 class="font-display font-extrabold text-[clamp(2rem,4vw,3rem)] leading-[1.05] tracking-tight text-balance mb-4">
+        What does your vehicle need?
+      </h2>
+      <p class="text-brand-silver text-lg leading-[1.7]">Fill in the form below and we'll contact you to confirm availability.</p>
+    </div>
+
+    <div class="reveal w-full" style="transition-delay: 120ms;">
+      <div class="metal-silver-surface relative text-ink-900 rounded-2xl p-8 sm:p-12 shadow-[0_45px_90px_-20px_rgba(0,0,0,0.65)] ring-1 ring-black/10">
+        <form class="enquiry-form space-y-6" data-variant="booking">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div>
+              <label for="service-booking" class="block font-display font-bold text-sm mb-2">Service needed</label>
+              <select id="service-booking" required class="w-full appearance-none bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200 bg-[url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23202020%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.19l3.71-3.96a.75.75%200%201%201.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_1rem_center] bg-[length:1.1rem]">
+                <option value="" selected disabled>Choose a service</option>
+                <option>MOT Testing</option>
+                <option>Servicing</option>
+                <option>Diagnostics</option>
+                <option>Repairs</option>
+                <option>Brake Repairs</option>
+                <option>Fleet Care</option>
+              </select>
+            </div>
+            <div>
+              <label for="reg-booking" class="block font-display font-bold text-sm mb-2">Registration</label>
+              <input id="reg-booking" type="text" placeholder="AB12 CDE" maxlength="8" class="w-full uppercase placeholder:normal-case bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+            </div>
+            <div>
+              <label for="date-booking" class="block font-display font-bold text-sm mb-2">Preferred day</label>
+              <input id="date-booking" type="date" class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+            </div>
+            <div>
+              <label for="email-booking" class="block font-display font-bold text-sm mb-2">Email address</label>
+              <input id="email-booking" type="email" required placeholder="you@example.com" class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200" />
+            </div>
+          </div>
+          <div id="comments-booking-wrap" data-comments-wrap class="hidden">
+            <label for="comments-booking" class="block font-display font-bold text-sm mb-2">Additional comments</label>
+            <textarea id="comments-booking" rows="3" placeholder="Tell us more about what your vehicle needs..." class="w-full bg-[#f5f5f3] border border-black/10 rounded-lg shadow-[inset_0_1px_3px_rgba(0,0,0,0.15)] px-4 py-3.5 text-[15px] text-ink-900 placeholder:text-[#9ca3af] focus:outline-none focus:ring-2 focus:ring-brand-greenlight focus:border-brand-greenlight spring transition-colors duration-200 resize-none"></textarea>
+          </div>
+          <div>
+            <button type="submit" data-submit-btn class="metal-green shrink-0 font-display font-bold text-sm tracking-wide text-white px-10 py-4 rounded-md inline-flex items-center justify-center gap-2 shadow-[0_14px_34px_-10px_rgba(1,80,70,0.7)] hover:shadow-[0_18px_40px_-8px_rgba(12,138,110,0.75)] hover:-translate-y-0.5 active:scale-[0.97] active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-green spring transition-all duration-300">
+              Send enquiry
+            </button>
+            <p class="mt-3 text-xs text-ink-900/70 font-medium">No payment needed. We'll confirm the appointment first.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT / FOOTER ============ -->
+<footer id="contact" class="relative bg-ink-950 pt-20 pb-10 border-t border-white/[0.06]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid md:grid-cols-4 gap-12 pb-14">
+      <div class="md:col-span-2">
+        <a href="#top" class="flex items-center gap-2.5 mb-5">
+          <img src="brand_assets/OTR_Logo.png" alt="ORS Garage logo" class="h-11 w-11 rounded-lg" />
+        </a>
+        <p class="text-brand-silver leading-[1.7] max-w-sm">Based in Manchester, ORS Autos provides trusted MOTs, servicing, diagnostics and repairs to keep you safely on the road.</p>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-sm tracking-[0.12em] mb-5">NAVIGATE</h4>
+        <ul class="space-y-3 text-brand-silver text-[15px]">
+          <li><a href="#top" class="hover:text-white transition-colors duration-200">Home</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors duration-200">Services</a></li>
+          <li><a href="#about" class="hover:text-white transition-colors duration-200">About</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors duration-200">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-sm tracking-[0.12em] mb-5">CONTACT</h4>
+        <ul class="space-y-3 text-brand-silver text-[15px]">
+          <li>Unit 9B,<br />Hemmons Road Industrial Estate,<br />Levenshulme, Manchester M12 5ST</li>
+          <li><a href="tel:01615664794" class="hover:text-white transition-colors duration-200">0161 566 4794</a></li>
+          <li><a href="mailto:info@orsautos.co.uk" class="hover:text-white transition-colors duration-200">info@orsautos.co.uk</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-white/[0.06] flex items-center justify-start">
+      <p class="text-sm text-brand-silver/70">&copy; 2026 ORS Garage. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ============ MOBILE STICKY ENQUIRY BAR ============ -->
+<div id="mobileStickyBar" class="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-ink-800/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-14px_34px_-10px_rgba(0,0,0,0.6)] px-4 pt-3 max-h-[85vh] overflow-y-auto" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));">
+  <button type="button" id="mobileFormToggle" aria-expanded="true" aria-controls="mobileFormBody" aria-label="Collapse booking form" class="w-full flex items-center justify-between gap-3 active:opacity-70 spring transition-opacity duration-200">
+    <span class="text-left">
+      <span class="block font-display font-bold text-sm leading-tight">How can we help?</span>
+      <span class="block text-[11px] text-brand-silver leading-tight">Quick, simple and hassle-free.</span>
+    </span>
+    <span class="shrink-0 w-8 h-8 grid place-items-center rounded-full bg-ink-700 ring-1 ring-white/10 text-white">
+      <svg id="mobileFormToggleIcon" class="w-4 h-4 spring transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
+    </span>
+  </button>
+  <div id="mobileFormBody" class="grid transition-[grid-template-rows] duration-300 ease-in-out" style="grid-template-rows: 1fr;">
+    <div class="overflow-hidden">
+      <form class="enquiry-form space-y-3 pt-3" data-variant="mobile">
+        <div>
+          <label for="service-mobile" class="block font-display font-bold text-xs mb-1.5">Service needed</label>
+          <select id="service-mobile" required class="w-full appearance-none bg-ink-700 ring-1 ring-white/10 rounded-lg pl-3 pr-7 py-2.5 text-[13px] font-medium text-white focus:outline-none focus:ring-2 focus:ring-brand-greenbright spring transition-all duration-200 bg-[url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23c4c4c4%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.19l3.71-3.96a.75.75%200%201%201.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-no-repeat bg-[right_0.5rem_center] bg-[length:0.9rem]">
+            <option value="" selected disabled>Select service</option>
+            <option>MOT Testing</option>
+            <option>Servicing</option>
+            <option>Diagnostics</option>
+            <option>Repairs</option>
+            <option>Brake Repairs</option>
+            <option>Fleet Care</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="reg-mobile" class="block font-display font-bold text-xs mb-1.5">Registration</label>
+            <input id="reg-mobile" type="text" placeholder="AB12 CDE" maxlength="8" class="w-full uppercase placeholder:normal-case bg-ink-700 ring-1 ring-white/10 rounded-lg px-3 py-2.5 text-[13px] font-medium text-white placeholder:text-brand-silver/60 focus:outline-none focus:ring-2 focus:ring-brand-greenbright spring transition-all duration-200" />
+          </div>
+          <div>
+            <label for="date-mobile" class="block font-display font-bold text-xs mb-1.5">Preferred day</label>
+            <input id="date-mobile" type="date" class="w-full bg-ink-700 ring-1 ring-white/10 rounded-lg px-3 py-2.5 text-[13px] font-medium text-white focus:outline-none focus:ring-2 focus:ring-brand-greenbright spring transition-all duration-200" />
+          </div>
+        </div>
+        <div>
+          <label for="email-mobile" class="block font-display font-bold text-xs mb-1.5">Email address</label>
+          <input id="email-mobile" type="email" required placeholder="you@example.com" class="w-full bg-ink-700 ring-1 ring-white/10 rounded-lg px-3 py-2.5 text-[13px] font-medium text-white placeholder:text-brand-silver/60 focus:outline-none focus:ring-2 focus:ring-brand-greenbright spring transition-all duration-200" />
+        </div>
+        <div id="comments-mobile-wrap" data-comments-wrap class="hidden">
+          <label for="comments-mobile" class="block font-display font-bold text-xs mb-1.5">Additional comments</label>
+          <textarea id="comments-mobile" rows="2" placeholder="Tell us more about what your vehicle needs..." class="w-full bg-ink-700 ring-1 ring-white/10 rounded-lg px-3 py-2.5 text-[13px] font-medium text-white placeholder:text-brand-silver/60 focus:outline-none focus:ring-2 focus:ring-brand-greenbright spring transition-all duration-200 resize-none"></textarea>
+        </div>
+        <button type="submit" data-submit-btn class="metal-green w-full font-display font-bold text-[13px] tracking-wide text-white px-5 py-3 rounded-lg active:scale-[0.97] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-greenbright spring transition-all duration-200">
+          Send enquiry
+        </button>
+        <p class="text-center text-[11px] text-brand-silver/70">No payment needed. We'll confirm the appointment first.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+
+  // mobile sticky bar: keeps the page's bottom padding in sync with the bar's
+  // real rendered height, so it never overlaps the footer, whether the form
+  // is expanded, collapsed, or its height changes (e.g. comments field)
+  const mobileStickyBar = document.getElementById('mobileStickyBar');
+  function syncMobileBarPadding() {
+    if (!mobileStickyBar) return;
+    const isVisible = window.getComputedStyle(mobileStickyBar).display !== 'none';
+    document.body.style.paddingBottom = isVisible ? mobileStickyBar.getBoundingClientRect().height + 'px' : '';
+  }
+
+  const mobileFormToggle = document.getElementById('mobileFormToggle');
+  const mobileFormBody = document.getElementById('mobileFormBody');
+  const mobileFormToggleIcon = document.getElementById('mobileFormToggleIcon');
+  if (mobileFormToggle && mobileFormBody) {
+    let mobileFormExpanded = true;
+    mobileFormToggle.addEventListener('click', () => {
+      mobileFormExpanded = !mobileFormExpanded;
+      mobileFormBody.style.gridTemplateRows = mobileFormExpanded ? '1fr' : '0fr';
+      mobileFormToggle.setAttribute('aria-expanded', String(mobileFormExpanded));
+      mobileFormToggle.setAttribute('aria-label', mobileFormExpanded ? 'Collapse booking form' : 'Expand booking form');
+      if (mobileFormToggleIcon) mobileFormToggleIcon.style.transform = mobileFormExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
+    });
+    mobileFormBody.addEventListener('transitionend', syncMobileBarPadding);
+  }
+
+  window.addEventListener('resize', syncMobileBarPadding);
+  syncMobileBarPadding();
+
+  document.querySelectorAll('.enquiry-form').forEach((form) => {
+    const serviceSelect = form.querySelector('select[id^="service-"]');
+    const commentsWrap = form.querySelector('[data-comments-wrap]');
+    if (serviceSelect && commentsWrap) {
+      serviceSelect.addEventListener('change', () => {
+        commentsWrap.classList.toggle('hidden', !serviceSelect.value);
+        syncMobileBarPadding();
+      });
+    }
+  });
+
+  document.querySelectorAll('.enquiry-form').forEach((form) => {
+    const btn = form.querySelector('[data-submit-btn]');
+    if (!btn) return;
+    const originalHTML = btn.innerHTML;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (btn.disabled) return;
+
+      btn.disabled = true;
+      btn.classList.add('scale-95');
+      btn.innerHTML = '<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg> Request sent';
+      btn.classList.add('flex', 'items-center', 'justify-center', 'gap-2');
+
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.classList.remove('scale-95');
+        btn.disabled = false;
+        form.reset();
+      }, 2400);
+    });
+  });
+
+  // scroll-triggered hero parallax
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const hero = document.querySelector('[data-hero]');
+    const layers = hero ? hero.querySelectorAll('[data-parallax]') : [];
+    if (!hero || !layers.length) return;
+
+    let heroVisible = true;
+    let ticking = false;
+
+    new IntersectionObserver((entries) => {
+      heroVisible = entries[0].isIntersecting;
+    }).observe(hero);
+
+    function update() {
+      ticking = false;
+      if (!heroVisible) return;
+      const y = window.scrollY;
+      layers.forEach((el) => {
+        const speed = parseFloat(el.dataset.parallax) || 0;
+        el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }, { passive: true });
+  })();
+
+  // scroll entrance reveal: subtle one-shot fade + rise for section content
+  (function () {
+    const targets = document.querySelectorAll('.reveal');
+    if (!targets.length) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach((el) => io.observe(el));
+  })();
+</script>
+
+</body>
+</html>
